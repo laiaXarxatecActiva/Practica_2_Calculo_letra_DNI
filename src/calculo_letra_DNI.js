@@ -1,10 +1,11 @@
 const GUIVEN_FULL_DNI = prompt ("Dame el DNI, número y letra incluídos:");
 const LETTERS = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
 
-const letter_DNI = GUIVEN_FULL_DNI.slice(-1);
+const letter_DNI = (GUIVEN_FULL_DNI.slice(-1)).toUpperCase();
 const number_DNI = GUIVEN_FULL_DNI.slice(0, -1);
 
 let good_letter = 'T';
+let message = "El número y la letra del DNI son correctos."
 
 if (number_DNI.length !== 8 || isNaN(Number(number_DNI))) {
     console.error(`El DNI intruducido no tiene un formato correcto.\nReinicie la página para intentarlo de nuevo`);
@@ -14,14 +15,9 @@ if (number_DNI.length !== 8 || isNaN(Number(number_DNI))) {
     for (let i = 0; i < LETTERS.length; i++) {
         if (LETTERS.indexOf(LETTERS[i]) == resto_DNI) good_letter = LETTERS[i];         
     }
+    if (good_letter !== letter_DNI) message = `El número del DNI es correcto, pero la letra no es correspondiente.\nLa letra correspondiente sería ${good_letter}.`
 
-
-    if (good_letter === letter_DNI) {
-        console.log("El número de la letra del DNI es correcta");
-    } else {
-        console.log("No");
-        
-    }
+    console.log(`DNI: ${number_DNI}   .   Letra indicada: ${letter_DNI}\nResto de la división: ${resto_DNI}\nLetra calculada: ${good_letter}\n${message}`);
 }
 
 
