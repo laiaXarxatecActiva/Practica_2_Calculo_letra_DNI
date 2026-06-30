@@ -23,14 +23,21 @@ function askDNI() {
 }
 
 function normalizeDNI(DNI) {
-    if (typeof DNI !== "string" || DNI.trim().length !== 9 || DNI.trim().length !== 10) return "";
+    if (typeof DNI !== "string" || (DNI.trim().length !== 9 && DNI.trim().length !== 10)) return "";
     return DNI.trim().replace('-', '').replace('_', '').replace(' ', '');
 }
 
 function isValidFormat(DNI) {
     const number = DNI.slice(0, -1);
-    const LETTERS = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
-    return (LETTERS.includes((DNI.slice(-1)).toUpperCase()) && DNI && DNI.length === 9 && number.length===8 && !isNaN(parseInt(number)));
+    const letter = DNI.slice(-1).toUpperCase();
+
+    const LETTERS = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+
+    return (
+        DNI.length === 9 &&
+        /^\d{8}$/.test(number) &&
+        LETTERS.includes(letter)
+    );
 }
 
 function calculateLetter(DNI) {
