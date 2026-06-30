@@ -10,7 +10,7 @@ if (!isValidFormat(TREATED_DNI)) {
     const resto_DNI = (parseInt(number_DNI)) % AMOUNT_LETTERS;
     let message = "El número y la letra del DNI son correctos.";
 
-    if (calculated_DNI_letter !== letter_DNI) message = "El número del DNI es correcto, pero la letra no es correspondiente.\nLa letra correspondiente sería ${calculated_DNI_letter}.";
+    if (calculated_DNI_letter !== letter_DNI) message = `El número del DNI es correcto, pero la letra no es correspondiente.\nLa letra correspondiente sería ${calculated_DNI_letter}.`;
 
     console.log(`DNI: ${number_DNI}   .   Letra indicada: ${letter_DNI}\nResto de la división: ${resto_DNI}\nLetra calculada: ${calculated_DNI_letter}\n${message}`);
 }
@@ -30,14 +30,17 @@ function normalizeDNI(DNI) {
 function isValidFormat(DNI) {
     const number = DNI.slice(0, -1);
     const letter = DNI.slice(-1).toUpperCase();
+    const LETTERS = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
 
-    const LETTERS = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+    return DNI.length === 9 && isValidNumber(number) && LETTERS.includes(letter);
+}
 
-    return (
-        DNI.length === 9 &&
-        /^\d{8}$/.test(number) &&
-        LETTERS.includes(letter)
-    );
+function isValidNumber(number) {
+    if (number.length !== 8) return false;
+    for (let i = 0; i < number.length; i++) {
+        if (number[i] < '0' || number[i] > '9') return false;
+    }
+    return true;
 }
 
 function calculateLetter(DNI) {
